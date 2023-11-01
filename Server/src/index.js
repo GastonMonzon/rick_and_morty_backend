@@ -3,12 +3,15 @@ const express = require('express');
 const { router } = require('./routes/')
 const server = express();
  */
+const { conn } = require('./DB_connection');
 const server = require('./app');
 const PORT = 3001;
 
 server.listen(PORT, () => {
   console.log('Server raised in port: ' + PORT);
+  conn.sync({ alter: true });
 });
+
 /* 
 server.use((request, response, next) => {
   response.header('Access-Control-Allow-Origin', '*');
