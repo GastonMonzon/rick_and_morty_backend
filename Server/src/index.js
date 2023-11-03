@@ -7,12 +7,6 @@ const { conn } = require('./DB_connection');
 const server = require('./app');
 const PORT = 3001;
 
-server.listen(PORT, () => {
-  console.log('Server raised in port: ' + PORT);
-  conn.sync({ alter: true });
-});
-
-/* 
 server.use((request, response, next) => {
   response.header('Access-Control-Allow-Origin', '*');
   response.header('Access-Control-Allow-Credentials', 'true');
@@ -27,11 +21,25 @@ server.use((request, response, next) => {
   next();
 });
 
+conn.sync({ alter: true })
+.then(() => {
+  server.listen(PORT, () => {
+  console.log(`Server raised in port: ${PORT}`);
+  })
+})
+
+/* 
+server.listen(PORT, () => {
+  console.log(`Server raised in port: ${PORT}`);
+  conn.sync({ alter: true });
+});
+
 server.use(express.json()); // Middleware para parsear el cuerpo de la solicitud como JSON
 
 server.use('/rickandmorty', router); // Reemplaza '/rickandmorty' con la ruta base correcta para el router
- */
-/* 
+*/
+
+/*
 const http = require('http');
 const data = require('./utils/data');
 const { getCharById } = require('./controllers/getCharById.js')

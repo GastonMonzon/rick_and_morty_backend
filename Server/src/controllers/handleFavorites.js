@@ -1,4 +1,6 @@
 let myFavorites = [];
+const { Favorite } = require('../DB_connection');
+
 
 function postFav(request, response) {
   const favoriteCharacter = request.body;
